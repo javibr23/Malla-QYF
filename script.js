@@ -1,4 +1,4 @@
-const dependencias = {
+const ramos = {
   "Química general I": ["Química general II", "Laboratorio de Química General", "Fisiología Celular"],
   "Técnicas de Laboratorio Químico": ["Laboratorio de Química General"],
   "Mecánica": ["Electromagnetismo", "Fisicoquímica I"],
@@ -49,31 +49,69 @@ const dependencias = {
   "Estadística Farmacéutica": ["Innovación y Proyectos"],
   "Farmacología Clínica": ["Practica Profesional en Farmacia Comunitaria", "Actividad final de titulación"],
   "Toxicología": ["Practica Profesional en Farmacia Comunitaria"],
-  "Farmacia Clínica": ["Actividad final de titulación"],
-  "Práctica Profesional en Farmacia Comunitaria": ["Actividad final de titulación"],
+  "Farmacia Asistencial": ["Actividad final de titulación"],
+  "Tecnología Cosmética": ["Actividad final de titulación"],
   "Biotecnología Farmacéutica": ["Actividad final de titulación"],
   "Economía en Salud y Marketing Farmacéutico": ["Actividad final de titulación"],
-  "Innovación y proyectos": ["Actividad final de titulación"]
+  "Innovación y Proyectos": ["Actividad final de titulación"]
 };
 
-const aprobados = new Set();
+const estado = {};
+const contenedor = document.getElementById("malla");
 
-function aprobar(nombre) {
-  const div = document.getElementById(nombre);
-  if (div.classList.contains("bloqueado")) return;
+function crearMalla() {
+  const todosRamos = new Set([...Object.keys(ramos), ...Object.values(ramos).flat()]);
+  todosRamos.forEach(nombre => {
+    estado[nombre] = false;
+    const div = document.createElement("div");
+    div.classList.add("ramo", "bloqueado");
+    div.textContent = nombre;
+    div.id = nombre;
+    div.onclick = () => toggleRamo(nombre);
+    contenedor.appendChild(div);
+  });
+  desbloquearIniciales();
+}
 
-  div.classList.add("aprobado");
-  aprobados.add(nombre);
-
-  for (const [clave, dependientes] of Object.entries(dependencias)) {
-    if (aprobados.has(clave)) {
-      dependientes.forEach(ramo => {
-        const elem = document.getElementById(ramo);
-        if (elem && elem.classList.contains("bloqueado")) {
-          elem.classList.remove("bloqueado");
-        }
-      });
+function desbloquearIniciales() {
+  const conRequisitos = new Set(Object.values(ramos).flat());
+  Object.keys(estado).forEach(nombre => {
+    if (!conRequisitos.has(nombre)) {
+      desbloquear(nombre);
     }
+  });
+}
+
+function desbloquear(nombre) {
+  const div = document.getElementById(nombre);
+  if (div) {
+    div.classList.remove("bloqueado");
   }
 }
 
+function toggleRamo(nombre) {
+  if (estado[nombre]) return;
+  const div = document.getElementById(nombre);
+  if (div.classList.contains("bloqueado")) return;
+  estado[nombre] = true;
+  div.classList.add("aprobado");
+
+  Object.entries(ramos).forEach(([prerrequisito, desbloqueaLista]) => {
+    if (nombre === prerrequisito) {
+      desbloqueaLista.forEach(destino => {
+        if (puedeDesbloquear(destino)) {
+          desbloquear(destino);
+        }
+      });
+    }
+  });
+}
+
+function puedeDesbloquear(nombre) {
+  const requisitos = Object.entries(ramos)
+    .filter(([_, v]) => v.includes(nombre))
+    .map(([k]) => k);
+  return requisitos.every(req => estado[req]);
+}
+
+crearMalla();
