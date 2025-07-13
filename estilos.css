@@ -13,9 +13,7 @@ h1 {
 }
 
 .malla {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  display: block;
   padding: 0 10px;
 }
 
@@ -41,4 +39,18 @@ h1 {
 .ramo.bloqueado {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.semestre {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-top: 40px;
+  color: #c2185b;
+  border-bottom: 2px solid #f48fb1;
+  padding-bottom: 5px;
 }
