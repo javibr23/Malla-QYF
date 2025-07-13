@@ -12,22 +12,27 @@ h1 {
   margin-bottom: 30px;
 }
 
-h2 {
-  margin: 40px 0 10px;
-  color: #c2185b;
-  border-bottom: 2px solid #f48fb1;
-  padding-bottom: 5px;
-}
-
-.malla {
-  padding: 0 10px;
+.contenedor-malla {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .semestre {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  margin-bottom: 30px;
+  background-color: #fce4ec;
+  border: 2px solid #f8bbd0;
+  border-radius: 15px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.semestre h2 {
+  text-align: center;
+  color: #c2185b;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .ramo {
@@ -38,6 +43,7 @@ h2 {
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  margin-bottom: 10px;
 }
 
 .ramo:hover {
