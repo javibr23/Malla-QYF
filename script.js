@@ -1,4 +1,3 @@
-// Estructura: { "Nombre del ramo": [ramos que desbloquea] }
 const ramos = {
   "Química general I": ["Química General II", "Laboratorio de Química General", "Fisiología celular"],
   "Técnicas de Laboratorio Químico": ["Laboratorio de Química General"],
@@ -19,57 +18,38 @@ const ramos = {
   "Fisiología celular": ["Fisiología de Sistemas"],
   "Investigación para las Ciencias Farmacéuticas": ["Practica intermedia", "Gestión de Calidad"],
   "Inglés III": ["Inglés IV"],
-  "Química orgánica II": ["Química de Heterocíclicos y Análisis Espectroscópico", "Bioquímica", "Botánica y Farmacognosia"],
-  "Laboratorio de Análisis Químico": ["Laboratorio de análisis instrumental", "Farmacología General"],
-  "Química analítica II": ["Laboratorio de Análisis Instrumental", "Botánica y Farmacognosia"],
-  "Fisicoquímica I": ["Bioquímica", "Fisicoquímica Farmacéutica"],
-  "Fisiología de Sistemas": ["Farmacología General", "Fisiopatología Molecular"],
-  "Practica intermedia": ["Legislación Farmacéutica"],
-  "Laboratorio de análisis instrumental": ["Análisis de medicamentos, Doping y Drogas de Abuso", "Bromatología"],
-  "Química de Heterocíclicos y Análisis Espectroscópico": ["Farmoquímica I"],
-  "Bioquímica": ["Fisiopatología Molecular", "Microbiología"],
-  "Farmacología General": ["Farmoquímica I", "Farmacología de sistemas I", "Biofarmacia y Farmacocinética"],
-  "Gestión de Calidad": ["Legislación Farmacéutica"],
-  "Microbiología": ["Farmacología de sistemas II"],
-  "Farmoquímica I": ["Farmoquímica II"],
-  "Farmacología de sistemas I": ["Farmacología de sistemas II"],
-  "Fisiopatología Molecular": ["Fisiopatología y Semiología", "Biotecnología Farmacéutica"],
-  "Legislación Farmacéutica": ["Salud Publica", "Tecnología Farmacéutica I"],
-  "Fisicoquímica Farmacéutica": ["Operaciones Unitarias para QYF", "Tecnología Farmacéutica I"],
-  "Fisiopatología y Semiología": ["Bioquímica Clínica", "Nutrición Clínica"],
-  "Farmoquímica II": ["Análisis de medicamentos, Doping y Drogas de Abuso"],
-  "Farmacología de sistemas II": ["Toxicología", "Farmacología Clínica"],
-  "Salud Publica": ["Estadística Farmacéutica", "Economía en Salud y Marketing Farmacéutico", "Farmacia asistencial"],
-  "Tecnología Farmacéutica I": ["Tecnología Farmacéutica II", "Biofarmacia y Farmacocinética", "Administración y Gestión Farmacéutica"],
-  "Operaciones Unitarias para QYF": ["Tecnología Farmacéutica II"],
-  "Nutrición Clínica": ["Bromatología"],
-  "Bioquímica Clínica": ["Toxicología", "Farmacología Clínica"],
-  "Biofarmacia y Farmacocinética": ["Farmacología Clínica"],
-  "Tecnología Farmacéutica II": ["Tecnología Cosmética", "Biotecnología Farmacéutica"],
-  "Administración y Gestión Farmacéutica": ["Práctica Profesional en Farmacia Comunitaria", "Farmacia Asistencial", "Economía en Salud y Marketing Farmacéutico"],
-  "Estadística Farmacéutica": ["Innovación y Proyectos"],
-  "Farmacología Clínica": ["Práctica Profesional en Farmacia Comunitaria", "Actividad final de titulación"],
-  "Toxicología": ["Práctica Profesional en Farmacia Comunitaria"],
-  "Farmacia Clínica": ["Actividad final de titulación"],
-  "Práctica Profesional en Farmacia Comunitaria": ["Actividad final de titulación"],
-  "Biotecnología Farmacéutica": ["Actividad final de titulación"],
-  "Economía en Salud y Marketing Farmacéutico": ["Actividad final de titulación"],
-  "Innovación y proyectos": ["Actividad final de titulación"]
 };
 
+const asignaciones = [
+  ["Química general I", "Técnicas de Laboratorio Químico", "Mecánica", "Introducción al Cálculo", "El Químico Farmacéutico y su Acción", "Inglés I", "Cursos de Formación General 1"],
+  ["Química General II", "Laboratorio de Química General", "Electromagnetismo", "Calculo diferencial e integral", "Biología general", "El Medicamento y su Evolución", "Inglés II"],
+  ["Química Orgánica I", "Química analítica I", "Laboratorio I de Química Orgánica", "Estadísticas y análisis de datos", "Fisiología celular", "Investigación para las Ciencias Farmacéuticas", "Cursos de Formación General 2", "Inglés III"],
+  ["Química Orgánica II", "Laboratorio de Análisis Químico", "Química analítica II", "Fisicoquímica I", "Fisiología de Sistemas", "Practica intermedia", "Inglés IV"]
+];
+
 const aprobados = new Set();
-const mallaContainer = document.getElementById("malla");
 
-function generarTodosLosRamos() {
-  const todos = new Set(Object.keys(ramos).concat(...Object.values(ramos)));
+function crearMalla() {
+  const contenedor = document.getElementById("contenedor-dinamico");
 
-  [...todos].sort().forEach(nombre => {
-    const div = document.createElement("div");
-    div.className = "ramo bloqueado";
-    div.innerText = nombre;
-    div.id = nombre;
-    div.onclick = () => toggleRamo(nombre);
-    mallaContainer.appendChild(div);
+  asignaciones.forEach((ramos, idx) => {
+    const semestre = document.createElement("div");
+    semestre.classList.add("semestre");
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = `${idx + 1}° Semestre`;
+    semestre.appendChild(titulo);
+
+    ramos.forEach(nombre => {
+      const ramo = document.createElement("div");
+      ramo.textContent = nombre;
+      ramo.id = nombre;
+      ramo.classList.add("ramo", "bloqueado");
+      ramo.onclick = () => toggleRamo(nombre);
+      semestre.appendChild(ramo);
+    });
+
+    contenedor.appendChild(semestre);
   });
 
   actualizarRamos();
@@ -92,8 +72,10 @@ function actualizarRamos() {
     el.classList.remove("aprobado");
     el.classList.add("bloqueado");
 
-    // Si no tiene requisitos o ya se cumplieron
-    const requisitos = Object.entries(ramos).filter(([_, desbloquea]) => desbloquea.includes(nombre)).map(([req]) => req);
+    const requisitos = Object.entries(ramos)
+      .filter(([_, desbloquea]) => desbloquea.includes(nombre))
+      .map(([req]) => req);
+
     const cumple = requisitos.every(req => aprobados.has(req));
 
     if (requisitos.length === 0 || cumple) {
@@ -106,4 +88,4 @@ function actualizarRamos() {
   });
 }
 
-generarTodosLosRamos();
+crearMalla();
