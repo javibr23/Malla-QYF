@@ -1,98 +1,124 @@
-// 👇 Esto hace que el código espere a que la página esté lista
 document.addEventListener("DOMContentLoaded", () => {
-  // 🔗 Aquí van los requisitos entre ramos
+  const malla = {
+    "Primer año": {
+      "I Semestre": [
+        "Química general I",
+        "Técnicas de Laboratorio Químico",
+        "Mecánica",
+        "Introducción al Cálculo",
+        "El Químico Farmacéutico y su Acción",
+        "Inglés I",
+        "Cursos de Formación General"
+      ],
+      "II Semestre": [
+        "Química General II",
+        "Laboratorio de Química General",
+        "Electromagnetismo",
+        "Calculo diferencial e integral",
+        "Biología general",
+        "El Medicamento y su Evolución",
+        "Inglés II"
+      ]
+    },
+    "Segundo año": {
+      "III semestre": [
+        "Química Orgánica I",
+        "Química analítica I",
+        "Laboratorio I de Química Orgánica",
+        "Estadísticas y análisis de datos",
+        "Fisiología celular",
+        "Investigación para las Ciencias Farmacéuticas",
+        "Cursos de Formación General",
+        "Inglés III"
+      ],
+      "IV semestre": [
+        "Química orgánica II",
+        "Laboratorio de Análisis Químico",
+        "Química analítica II",
+        "Fisicoquímica I",
+        "Fisiología de Sistemas",
+        "Practica intermedia",
+        "Inglés IV"
+      ]
+    }
+  };
+
   const dependencias = {
-    "Química general I": ["Química general II", "Laboratorio de Química General", "Fisiología Celular"],
+    "Química general I": ["Química General II", "Laboratorio de Química General", "Fisiología celular"],
     "Técnicas de Laboratorio Químico": ["Laboratorio de Química General"],
     "Mecánica": ["Electromagnetismo", "Fisicoquímica I"],
     "Introducción al Cálculo": ["Calculo diferencial e integral", "Electromagnetismo"],
     "El Químico Farmacéutico y su Acción": ["El Medicamento y su Evolución"],
     "Inglés I": ["Inglés II"],
-    "Química General II": ["Química Orgánica I", "Química Analítica I", "Laboratorio I de Química Orgánica"],
+    "Química General II": ["Química Orgánica I", "Química analítica I", "Laboratorio I de Química Orgánica"],
     "Laboratorio de Química General": ["Química analítica I", "Laboratorio I de Química Orgánica"],
     "Electromagnetismo": ["Fisiología celular"],
     "Calculo diferencial e integral": ["Estadísticas y análisis de datos", "Fisicoquímica I"],
     "Biología general": ["Fisiología celular"],
     "El Medicamento y su Evolución": ["Investigación para las Ciencias Farmacéuticas"],
     "Inglés II": ["Inglés III", "Investigación para las Ciencias Farmacéuticas"],
-    "Química Orgánica I": ["Química Orgánica II", "Fisicoquímica I"],
+    "Química Orgánica I": ["Química orgánica II", "Fisicoquímica I"],
     "Química analítica I": ["Química analítica II", "Laboratorio de Análisis Químico"],
-    "Estadísticas y análisis de datos": ["Laboratorio de Análisis Químico", "Estadística Farmacéutica"],
+    "Estadísticas y análisis de datos": ["Laboratorio de Análisis Químico"],
     "Fisiología celular": ["Fisiología de Sistemas"],
-    "Investigación para las Ciencias Farmacéuticas": ["Practica intermedia", "Gestión de Calidad"],
-    "Inglés III": ["Inglés IV"],
-    "Química orgánica II": ["Química de Heterocíclicos y Análisis Espectroscópico", "Bioquímica", "Botánica y Farmacognosia"],
-    "Laboratorio de Análisis Químico": ["Laboratorio de análisis instrumental", "Farmacología General"],
-    "Química analítica II": ["Laboratorio de Análisis Instrumental", "Botánica y Farmacognosia"],
-    "Fisicoquímica I": ["Bioquímica", "Fisicoquímica Farmacéutica"],
-    "Fisiología de Sistemas": ["Farmacología General", "Fisiopatología Molecular"],
-    "Practica intermedia": ["Legislación Farmacéutica"],
-    "Laboratorio de análisis instrumental": ["Análisis de medicamentos, Doping y Drogas de Abuso", "Bromatología"],
-    "Química de Heterocíclicos y Análisis Espectroscópico": ["Farmoquímica I"],
-    "Bioquímica": ["Fisiopatología Molecular", "Microbiología"],
-    "Farmacología General": ["Farmoquímica I", "Farmacología de Sistemas I", "Biofarmacia y Farmacocinética"],
-    "Gestión de Calidad": ["Legislación Farmacéutica"],
-    "Microbiología": ["Farmacología de sistemas II"],
-    "Farmoquímica I": ["Farmoquímica II"],
-    "Farmacología de sistemas I": ["Farmacología de sistemas II"],
-    "Fisiopatología Molecular": ["Fisiopatología y Semiología", "Biotecnología Farmacéutica"],
-    "Legislación Farmacéutica": ["Salud Publica", "Tecnología Farmacéutica I"],
-    "Fisicoquímica Farmacéutica": ["Operaciones Unitarias para QYF", "Tecnología Farmacéutica I"],
-    "Fisiopatología y Semiología": ["Bioquímica Clínica", "Nutrición Clínica"],
-    "Farmoquímica II": ["Análisis de medicamentos, Doping y Drogas de Abuso"],
-    "Farmacología de sistemas II": ["Toxicología", "Farmacología Clínica"],
-    "Salud Publica": ["Estadística Farmacéutica", "Economía en Salud y Marketing Farmacéutico", "Farmacia asistencial"],
-    "Tecnología Farmacéutica I": ["Tecnología Farmacéutica II", "Biofarmacia y Farmacocinética", "Administración y Gestión Farmacéutica"],
-    "Operaciones Unitarias para QYF": ["Tecnología Farmacéutica II"],
-    "Nutrición Clínica": ["Bromatología"],
-    "Bioquímica Clínica": ["Toxicología", "Farmacología Clínica"],
-    "Biofarmacia y Farmacocinética": ["Farmacología Clínica"],
-    "Tecnología Farmacéutica II": ["Tecnología Cosmética", "Biotecnología Farmacéutica"],
-    "Administración y Gestión Farmacéutica": ["Practica Profesional en Farmacia Comunitaria", "Farmacia Asistencial", "Economía en Salud y Marketing Farmacéutico"],
-    "Estadística Farmacéutica": ["Innovación y Proyectos"],
-    "Farmacología Clínica": ["Practica Profesional en Farmacia Comunitaria", "Actividad final de titulación"],
-    "Toxicología": ["Practica Profesional en Farmacia Comunitaria"],
-    "Farmacia Clínica": ["Actividad final de titulación"],
-    "Práctica Profesional en Farmacia Comunitaria": ["Actividad final de titulación"],
-    "Biotecnología Farmacéutica": ["Actividad final de titulación"],
-    "Economía en Salud y Marketing Farmacéutico": ["Actividad final de titulación"],
-    "Innovación y proyectos": ["Actividad final de titulación"]
+    "Investigación para las Ciencias Farmacéuticas": ["Practica intermedia"],
+    "Inglés III": ["Inglés IV"]
   };
 
-  // 🧠 Estado de cada ramo (si está aprobado o no)
   const estados = {};
-  const malla = document.getElementById("malla");
+  const contenedor = document.getElementById("contenedor");
 
-  // 🧱 Genera todos los botones de ramos
-  const ramos = Array.from(
-    new Set(Object.keys(dependencias).concat(...Object.values(dependencias)))
-  );
+  for (const [anio, semestres] of Object.entries(malla)) {
+    for (const [semestre, ramos] of Object.entries(semestres)) {
+      const columna = document.createElement("div");
+      columna.classList.add("semestre");
 
-  ramos.forEach(ramo => {
-    estados[ramo] = false;
-    const div = document.createElement("div");
-    div.classList.add("ramo");
-    div.textContent = ramo;
-    div.id = ramo;
-    div.addEventListener("click", () => aprobar(ramo));
-    malla.appendChild(div);
-  });
+      const titulo = document.createElement("h2");
+      titulo.textContent = semestre;
+      columna.appendChild(titulo);
 
-  // ✅ Cuando apruebas un ramo, desbloquea los que dependían de él
+      ramos.forEach(ramo => {
+        estados[ramo] = false;
+        const div = document.createElement("div");
+        div.classList.add("ramo");
+        if (tieneRequisitos(ramo)) {
+          div.classList.add("bloqueado");
+        }
+        div.textContent = ramo;
+        div.id = ramo;
+        div.addEventListener("click", () => aprobar(ramo));
+        columna.appendChild(div);
+      });
+
+      contenedor.appendChild(columna);
+    }
+  }
+
+  function tieneRequisitos(ramo) {
+    return Object.values(dependencias).some(lista => lista.includes(ramo));
+  }
+
+  function requisitosCumplidos(ramo) {
+    const requisitos = Object.entries(dependencias)
+      .filter(([_, hijos]) => hijos.includes(ramo))
+      .map(([padre]) => padre);
+    return requisitos.every(r => estados[r]);
+  }
+
   function aprobar(nombre) {
     if (estados[nombre]) return;
+    if (tieneRequisitos(nombre) && !requisitosCumplidos(nombre)) return;
 
     estados[nombre] = true;
-    document.getElementById(nombre).classList.add("aprobado");
+    const nodo = document.getElementById(nombre);
+    nodo.classList.add("aprobado");
+    nodo.classList.remove("bloqueado");
 
     if (dependencias[nombre]) {
       dependencias[nombre].forEach(dep => {
-        const requisitos = Object.entries(dependencias)
-          .filter(([_, hijos]) => hijos.includes(dep))
-          .map(([padre]) => padre);
-
-        if (requisitos.every(req => estados[req])) {
-          document.getElementById(dep).classList.remove("deshabilitado");
+        if (requisitosCumplidos(dep)) {
+          const nodoHijo = document.getElementById(dep);
+          nodoHijo.classList.remove("bloqueado");
         }
       });
     }
