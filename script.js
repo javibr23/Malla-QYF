@@ -112,11 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function desbloquearIniciales() {
-  const conRequisitos = new Set();
-  ramos.forEach(r => r.desbloquea.forEach(req => conRequisitos.add(req)));
+  const ramosConPrerequisitos = new Set();
+  ramos.forEach(r => {
+    r.desbloquea.forEach(nombre => {
+      ramosConPrerequisitos.add(nombre);
+    });
+  });
 
   ramos.forEach(r => {
-    if (!conRequisitos.has(r.nombre)) {
+    const tienePrerequisitos = ramos.some(other =>
+      other.desbloquea.includes(r.nombre)
+    );
+    if (!tienePrerequisitos) {
       estadoRamos[r.nombre].contenedor.classList.remove("bloqueado");
     }
   });
