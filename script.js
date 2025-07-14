@@ -61,7 +61,7 @@ const ramos = [
   { nombre: "Administración y Gestión Farmacéutica", semestre: "VIII Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria", "Farmacia Asistencial", "Economía en Salud y Marketing Farmacéutico"] },
   { nombre: "Estadística Farmacéutica", semestre: "VIII Semestre", desbloquea: ["Innovación y proyectos"] },
 
-  { nombre: "Farmacología Clínica", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria", "Actividad final de titulación"] },
+  { nombre: "Farmacología Clínica", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria", "Actividad final de titulación", Farmacia Clínica] },
   { nombre: "Bromatología", semestre: "IX Semestre", desbloquea: [] },
   { nombre: "Toxicología", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria"] },
   { nombre: "Farmacia Asistencial", semestre: "IX Semestre", desbloquea: [] },
