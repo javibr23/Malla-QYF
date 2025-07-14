@@ -1,126 +1,146 @@
+// script.js
+const ramos = [
+  { nombre: "Química general I", semestre: "I Semestre", desbloquea: ["Química general II", "Laboratorio de Química General", "Fisiología Celular"] },
+  { nombre: "Técnicas de Laboratorio Químico", semestre: "I Semestre", desbloquea: ["Laboratorio de Química General"] },
+  { nombre: "Mecánica", semestre: "I Semestre", desbloquea: ["Electromagnetismo", "Fisicoquímica I"] },
+  { nombre: "Introducción al Cálculo", semestre: "I Semestre", desbloquea: ["Calculo diferencial e integral", "Electromagnetismo"] },
+  { nombre: "El Químico Farmacéutico y su Acción", semestre: "I Semestre", desbloquea: ["El Medicamento y su Evolución"] },
+  { nombre: "Inglés I", semestre: "I Semestre", desbloquea: ["Inglés II"] },
+  { nombre: "Cursos de Formación General", semestre: "I Semestre", desbloquea: [] },
+  
+  { nombre: "Química General II", semestre: "II Semestre", desbloquea: ["Química Orgánica I", "Química Analítica I", "Laboratorio I de Química Orgánica"] },
+  { nombre: "Laboratorio de Química General", semestre: "II Semestre", desbloquea: ["Química analítica I", "Laboratorio I de Química Orgánica"] },
+  { nombre: "Electromagnetismo", semestre: "II Semestre", desbloquea: ["Fisiología celular"] },
+  { nombre: "Calculo diferencial e integral", semestre: "II Semestre", desbloquea: ["Estadísticas y análisis de datos", "Fisicoquímica I"] },
+  { nombre: "Biología general", semestre: "II Semestre", desbloquea: ["Fisiología celular"] },
+  { nombre: "El Medicamento y su Evolución", semestre: "II Semestre", desbloquea: ["Investigación para las Ciencias Farmacéuticas"] },
+  { nombre: "Inglés II", semestre: "II Semestre", desbloquea: ["Inglés III", "Investigación para las Ciencias Farmacéuticas"] },
+
+  { nombre: "Química Orgánica I", semestre: "III Semestre", desbloquea: ["Química Orgánica II", "Fisicoquímica I"] },
+  { nombre: "Química analítica I", semestre: "III Semestre", desbloquea: ["Química analítica II", "Laboratorio de Análisis Químico"] },
+  { nombre: "Laboratorio I de Química Orgánica", semestre: "III Semestre", desbloquea: [] },
+  { nombre: "Estadísticas y análisis de datos", semestre: "III Semestre", desbloquea: ["Laboratorio de Análisis Químico", "Estadística Farmacéutica"] },
+  { nombre: "Fisiología celular", semestre: "III Semestre", desbloquea: ["Fisiología de Sistemas"] },
+  { nombre: "Investigación para las Ciencias Farmacéuticas", semestre: "III Semestre", desbloquea: ["Practica intermedia", "Gestión de Calidad"] },
+  { nombre: "Cursos de Formación General", semestre: "III Semestre", desbloquea: [] },
+  { nombre: "Inglés III", semestre: "III Semestre", desbloquea: ["Inglés IV"] },
+
+  { nombre: "Química Orgánica II", semestre: "IV Semestre", desbloquea: ["Química de Heterocíclicos y Análisis Espectroscópico", "Bioquímica", "Botánica y Farmacognosia"] },
+  { nombre: "Laboratorio de Análisis Químico", semestre: "IV Semestre", desbloquea: ["Laboratorio de análisis instrumental", "Farmacología General"] },
+  { nombre: "Química analítica II", semestre: "IV Semestre", desbloquea: ["Laboratorio de Análisis Instrumental", "Botánica y Farmacognosia"] },
+  { nombre: "Fisicoquímica I", semestre: "IV Semestre", desbloquea: ["Bioquímica", "Fisicoquímica Farmacéutica"] },
+  { nombre: "Fisiología de Sistemas", semestre: "IV Semestre", desbloquea: ["Farmacología General", "Fisiopatología Molecular"] },
+  { nombre: "Practica intermedia", semestre: "IV Semestre", desbloquea: ["Legislación Farmacéutica"] },
+  { nombre: "Inglés IV", semestre: "IV Semestre", desbloquea: [] },
+
+  { nombre: "Laboratorio de análisis instrumental", semestre: "V Semestre", desbloquea: ["Análisis de medicamentos, Doping y Drogas de Abuso", "Bromatología"] },
+  { nombre: "Botánica y Farmacognosia", semestre: "V Semestre", desbloquea: [] },
+  { nombre: "Química de Heterocíclicos y Análisis Espectroscópico", semestre: "V Semestre", desbloquea: ["Farmoquímica I"] },
+  { nombre: "Bioquímica", semestre: "V Semestre", desbloquea: ["Fisiopatología Molecular", "Microbiología"] },
+  { nombre: "Farmacología General", semestre: "V Semestre", desbloquea: ["Farmoquímica I", "Farmacología de Sistemas I", "Biofarmacia y Farmacocinética"] },
+  { nombre: "Gestión de Calidad", semestre: "V Semestre", desbloquea: ["Legislación Farmacéutica"] },
+
+  { nombre: "Microbiología", semestre: "VI Semestre", desbloquea: ["Farmacología de sistemas II"] },
+  { nombre: "Farmoquímica I", semestre: "VI Semestre", desbloquea: ["Farmoquímica II"] },
+  { nombre: "Farmacología de sistemas I", semestre: "VI Semestre", desbloquea: ["Farmacología de sistemas II"] },
+  { nombre: "Fisiopatología Molecular", semestre: "VI Semestre", desbloquea: ["Fisiopatología y Semiología", "Biotecnología Farmacéutica"] },
+  { nombre: "Legislación Farmacéutica", semestre: "VI Semestre", desbloquea: ["Salud Publica", "Tecnología Farmacéutica I"] },
+  { nombre: "Fisicoquímica Farmacéutica", semestre: "VI Semestre", desbloquea: ["Operaciones Unitarias para QYF", "Tecnología Farmacéutica I"] },
+
+  { nombre: "Fisiopatología y Semiología", semestre: "VII Semestre", desbloquea: ["Bioquímica Clínica", "Nutrición Clínica"] },
+  { nombre: "Farmoquímica II", semestre: "VII Semestre", desbloquea: ["Análisis de medicamentos, Doping y Drogas de Abuso"] },
+  { nombre: "Farmacología de sistemas II", semestre: "VII Semestre", desbloquea: ["Toxicología", "Farmacología Clínica"] },
+  { nombre: "Salud Publica", semestre: "VII Semestre", desbloquea: ["Estadística Farmacéutica", "Economía en Salud y Marketing Farmacéutico", "Farmacia Asistencial"] },
+  { nombre: "Tecnología Farmacéutica I", semestre: "VII Semestre", desbloquea: ["Tecnología Farmacéutica II", "Biofarmacia y Farmacocinética", "Administración y Gestión Farmacéutica"] },
+  { nombre: "Operaciones Unitarias para QYF", semestre: "VII Semestre", desbloquea: ["Tecnología Farmacéutica II"] },
+
+  { nombre: "Análisis de medicamentos, Doping y Drogas de Abuso", semestre: "VIII Semestre", desbloquea: [] },
+  { nombre: "Nutrición Clínica", semestre: "VIII Semestre", desbloquea: ["Bromatología"] },
+  { nombre: "Bioquímica Clínica", semestre: "VIII Semestre", desbloquea: ["Toxicología", "Farmacología Clínica"] },
+  { nombre: "Biofarmacia y Farmacocinética", semestre: "VIII Semestre", desbloquea: ["Farmacología Clínica"] },
+  { nombre: "Tecnología Farmacéutica II", semestre: "VIII Semestre", desbloquea: ["Tecnología Cosmética", "Biotecnología Farmacéutica"] },
+  { nombre: "Administración y Gestión Farmacéutica", semestre: "VIII Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria", "Farmacia Asistencial", "Economía en Salud y Marketing Farmacéutico"] },
+  { nombre: "Estadística Farmacéutica", semestre: "VIII Semestre", desbloquea: ["Innovación y proyectos"] },
+
+  { nombre: "Farmacología Clínica", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria", "Actividad final de titulación"] },
+  { nombre: "Bromatología", semestre: "IX Semestre", desbloquea: [] },
+  { nombre: "Toxicología", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria"] },
+  { nombre: "Farmacia Asistencial", semestre: "IX Semestre", desbloquea: [] },
+  { nombre: "Tecnología Cosmética", semestre: "IX Semestre", desbloquea: [] },
+  { nombre: "Electivo Especializado", semestre: "IX Semestre", desbloquea: [] },
+
+  { nombre: "Farmacia Clínica", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
+  { nombre: "Práctica Profesional en Farmacia Comunitaria", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
+  { nombre: "Biotecnología Farmacéutica", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
+  { nombre: "Economía en Salud y Marketing Farmacéutico", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
+  { nombre: "Innovación y proyectos", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
+  { nombre: "Electivo Especializado", semestre: "X Semestre", desbloquea: [] },
+
+  { nombre: "Actividad final de titulación", semestre: "XI Semestre", desbloquea: [] }
+];
+
+const estadoRamos = {};
+
 document.addEventListener("DOMContentLoaded", () => {
-  const malla = {
-    "Primer año": {
-      "I Semestre": [
-        "Química general I",
-        "Técnicas de Laboratorio Químico",
-        "Mecánica",
-        "Introducción al Cálculo",
-        "El Químico Farmacéutico y su Acción",
-        "Inglés I",
-        "Cursos de Formación General"
-      ],
-      "II Semestre": [
-        "Química General II",
-        "Laboratorio de Química General",
-        "Electromagnetismo",
-        "Calculo diferencial e integral",
-        "Biología general",
-        "El Medicamento y su Evolución",
-        "Inglés II"
-      ]
-    },
-    "Segundo año": {
-      "III semestre": [
-        "Química Orgánica I",
-        "Química analítica I",
-        "Laboratorio I de Química Orgánica",
-        "Estadísticas y análisis de datos",
-        "Fisiología celular",
-        "Investigación para las Ciencias Farmacéuticas",
-        "Cursos de Formación General",
-        "Inglés III"
-      ],
-      "IV semestre": [
-        "Química orgánica II",
-        "Laboratorio de Análisis Químico",
-        "Química analítica II",
-        "Fisicoquímica I",
-        "Fisiología de Sistemas",
-        "Practica intermedia",
-        "Inglés IV"
-      ]
-    }
-  };
+  const malla = document.getElementById("malla-container");
+  const semestres = [...new Set(ramos.map(r => r.semestre))];
+  const mapaSemestres = {};
 
-  const dependencias = {
-    "Química general I": ["Química General II", "Laboratorio de Química General", "Fisiología celular"],
-    "Técnicas de Laboratorio Químico": ["Laboratorio de Química General"],
-    "Mecánica": ["Electromagnetismo", "Fisicoquímica I"],
-    "Introducción al Cálculo": ["Calculo diferencial e integral", "Electromagnetismo"],
-    "El Químico Farmacéutico y su Acción": ["El Medicamento y su Evolución"],
-    "Inglés I": ["Inglés II"],
-    "Química General II": ["Química Orgánica I", "Química analítica I", "Laboratorio I de Química Orgánica"],
-    "Laboratorio de Química General": ["Química analítica I", "Laboratorio I de Química Orgánica"],
-    "Electromagnetismo": ["Fisiología celular"],
-    "Calculo diferencial e integral": ["Estadísticas y análisis de datos", "Fisicoquímica I"],
-    "Biología general": ["Fisiología celular"],
-    "El Medicamento y su Evolución": ["Investigación para las Ciencias Farmacéuticas"],
-    "Inglés II": ["Inglés III", "Investigación para las Ciencias Farmacéuticas"],
-    "Química Orgánica I": ["Química orgánica II", "Fisicoquímica I"],
-    "Química analítica I": ["Química analítica II", "Laboratorio de Análisis Químico"],
-    "Estadísticas y análisis de datos": ["Laboratorio de Análisis Químico"],
-    "Fisiología celular": ["Fisiología de Sistemas"],
-    "Investigación para las Ciencias Farmacéuticas": ["Practica intermedia"],
-    "Inglés III": ["Inglés IV"]
-  };
+  semestres.forEach(sem => {
+    const div = document.createElement("div");
+    div.className = "semestre";
+    div.innerHTML = `<h2>${sem}</h2>`;
+    malla.appendChild(div);
+    mapaSemestres[sem] = div;
+  });
 
-  const estados = {};
-  const contenedor = document.getElementById("contenedor");
+  ramos.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "ramo";
+    const btn = document.createElement("button");
+    btn.textContent = "Aprobar";
+    btn.disabled = true;
 
-  for (const [anio, semestres] of Object.entries(malla)) {
-    for (const [semestre, ramos] of Object.entries(semestres)) {
-      const columna = document.createElement("div");
-      columna.classList.add("semestre");
+    div.innerHTML = `<span>${r.nombre}</span>`;
+    div.appendChild(btn);
 
-      const titulo = document.createElement("h2");
-      titulo.textContent = semestre;
-      columna.appendChild(titulo);
+    mapaSemestres[r.semestre].appendChild(div);
 
-      ramos.forEach(ramo => {
-        estados[ramo] = false;
-        const div = document.createElement("div");
-        div.classList.add("ramo");
-        if (tieneRequisitos(ramo)) {
-          div.classList.add("bloqueado");
-        }
-        div.textContent = ramo;
-        div.id = ramo;
-        div.addEventListener("click", () => aprobar(ramo));
-        columna.appendChild(div);
-      });
+    estadoRamos[r.nombre] = { aprobado: false, boton: btn, contenedor: div, desbloquea: r.desbloquea };
 
-      contenedor.appendChild(columna);
-    }
-  }
+    btn.addEventListener("click", () => aprobarRamo(r.nombre));
+  });
 
-  function tieneRequisitos(ramo) {
-    return Object.values(dependencias).some(lista => lista.includes(ramo));
-  }
-
-  function requisitosCumplidos(ramo) {
-    const requisitos = Object.entries(dependencias)
-      .filter(([_, hijos]) => hijos.includes(ramo))
-      .map(([padre]) => padre);
-    return requisitos.every(r => estados[r]);
-  }
-
-  function aprobar(nombre) {
-    if (estados[nombre]) return;
-    if (tieneRequisitos(nombre) && !requisitosCumplidos(nombre)) return;
-
-    estados[nombre] = true;
-    const nodo = document.getElementById(nombre);
-    nodo.classList.add("aprobado");
-    nodo.classList.remove("bloqueado");
-
-    if (dependencias[nombre]) {
-      dependencias[nombre].forEach(dep => {
-        if (requisitosCumplidos(dep)) {
-          const nodoHijo = document.getElementById(dep);
-          nodoHijo.classList.remove("bloqueado");
-        }
-      });
-    }
-  }
+  desbloquearIniciales();
 });
+
+function desbloquearIniciales() {
+  const conRequisitos = new Set();
+  ramos.forEach(r => r.desbloquea.forEach(req => conRequisitos.add(req)));
+
+  ramos.forEach(r => {
+    if (!conRequisitos.has(r.nombre)) {
+      estadoRamos[r.nombre].boton.disabled = false;
+    }
+  });
+}
+
+function aprobarRamo(nombre) {
+  const ramo = estadoRamos[nombre];
+  if (ramo.aprobado) return;
+
+  ramo.aprobado = true;
+  ramo.boton.textContent = "Aprobado";
+  ramo.boton.disabled = true;
+  ramo.contenedor.classList.add("aprobado");
+
+  ramo.desbloquea.forEach(nombreDesbloqueado => {
+    if (estadoRamos[nombreDesbloqueado]) {
+      const requisitos = ramos.filter(r => r.desbloquea.includes(nombreDesbloqueado));
+      const aprobados = requisitos.every(r => estadoRamos[r.nombre].aprobado);
+      if (aprobados) {
+        estadoRamos[nombreDesbloqueado].boton.disabled = false;
+      }
+    }
+  });
+}
