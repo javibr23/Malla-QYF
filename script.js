@@ -1,5 +1,5 @@
 const ramos = [
-  { nombre: "Química general I", semestre: "I Semestre", desbloquea: ["Química general II", "Laboratorio de Química General", "Fisiología Celular"] },
+  { nombre: "Química general I", semestre: "I Semestre", desbloquea: ["Química General II", "Laboratorio de Química General", "Fisiología Celular"] },
   { nombre: "Técnicas de Laboratorio Químico", semestre: "I Semestre", desbloquea: ["Laboratorio de Química General"] },
   { nombre: "Mecánica", semestre: "I Semestre", desbloquea: ["Electromagnetismo", "Fisicoquímica I"] },
   { nombre: "Introducción al Cálculo", semestre: "I Semestre", desbloquea: ["Calculo diferencial e integral", "Electromagnetismo"] },
