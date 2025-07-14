@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ramos.forEach(r => {
     const div = document.createElement("div");
     div.className = "ramo bloqueado";
-    div.textContent = r.nombre;
+    div.innerHTML = r.nombre;
 
     div.addEventListener("click", () => {
       if (div.classList.contains("bloqueado") || div.classList.contains("aprobado")) return;
