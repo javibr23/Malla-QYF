@@ -2,45 +2,52 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fff0f5;
   color: #333;
-  margin: 20px;
-  padding: 0;
+  margin: 0;
+  padding: 20px;
 }
-
 h1 {
   text-align: center;
   color: #c71585;
 }
-
-#malla {
+#contenedor {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px;
+  justify-content: flex-start;
 }
-
+.semestre {
+  min-width: 220px;
+}
+.semestre h2 {
+  text-align: center;
+  color: #c71585;
+}
 .ramo {
   border: 2px solid #c71585;
   background-color: #ffe6f0;
   color: #800040;
-  padding: 12px;
-  border-radius: 12px;
-  width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 8px;
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
   user-select: none;
 }
-
 .ramo:hover {
   background-color: #fcd1e5;
 }
-
 .ramo.aprobado {
   background-color: #ffc0cb;
   text-decoration: line-through;
   border-color: #ff69b4;
   color: #444;
   cursor: default;
+}
+.ramo.bloqueado {
+  background-color: #f2f2f2;
+  color: #aaa;
+  border-style: dashed;
+  cursor: not-allowed;
 }
