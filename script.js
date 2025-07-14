@@ -1,4 +1,3 @@
-// script.js
 const ramos = [
   { nombre: "Química general I", semestre: "I Semestre", desbloquea: ["Química general II", "Laboratorio de Química General", "Fisiología Celular"] },
   { nombre: "Técnicas de Laboratorio Químico", semestre: "I Semestre", desbloquea: ["Laboratorio de Química General"] },
@@ -7,7 +6,7 @@ const ramos = [
   { nombre: "El Químico Farmacéutico y su Acción", semestre: "I Semestre", desbloquea: ["El Medicamento y su Evolución"] },
   { nombre: "Inglés I", semestre: "I Semestre", desbloquea: ["Inglés II"] },
   { nombre: "Cursos de Formación General", semestre: "I Semestre", desbloquea: [] },
-  
+
   { nombre: "Química General II", semestre: "II Semestre", desbloquea: ["Química Orgánica I", "Química Analítica I", "Laboratorio I de Química Orgánica"] },
   { nombre: "Laboratorio de Química General", semestre: "II Semestre", desbloquea: ["Química analítica I", "Laboratorio I de Química Orgánica"] },
   { nombre: "Electromagnetismo", semestre: "II Semestre", desbloquea: ["Fisiología celular"] },
@@ -96,19 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ramos.forEach(r => {
     const div = document.createElement("div");
-    div.className = "ramo";
-    const btn = document.createElement("button");
-    btn.textContent = "Aprobar";
-    btn.disabled = true;
+    div.className = "ramo bloqueado";
+    div.textContent = r.nombre;
 
-    div.innerHTML = `<span>${r.nombre}</span>`;
-    div.appendChild(btn);
+    div.addEventListener("click", () => {
+      if (div.classList.contains("bloqueado") || div.classList.contains("aprobado")) return;
+      aprobarRamo(r.nombre);
+    });
 
     mapaSemestres[r.semestre].appendChild(div);
 
-    estadoRamos[r.nombre] = { aprobado: false, boton: btn, contenedor: div, desbloquea: r.desbloquea };
-
-    btn.addEventListener("click", () => aprobarRamo(r.nombre));
+    estadoRamos[r.nombre] = { aprobado: false, contenedor: div, desbloquea: r.desbloquea };
   });
 
   desbloquearIniciales();
@@ -120,7 +117,7 @@ function desbloquearIniciales() {
 
   ramos.forEach(r => {
     if (!conRequisitos.has(r.nombre)) {
-      estadoRamos[r.nombre].boton.disabled = false;
+      estadoRamos[r.nombre].contenedor.classList.remove("bloqueado");
     }
   });
 }
@@ -130,16 +127,15 @@ function aprobarRamo(nombre) {
   if (ramo.aprobado) return;
 
   ramo.aprobado = true;
-  ramo.boton.textContent = "Aprobado";
-  ramo.boton.disabled = true;
   ramo.contenedor.classList.add("aprobado");
+  ramo.contenedor.classList.remove("bloqueado");
 
   ramo.desbloquea.forEach(nombreDesbloqueado => {
     if (estadoRamos[nombreDesbloqueado]) {
       const requisitos = ramos.filter(r => r.desbloquea.includes(nombreDesbloqueado));
       const aprobados = requisitos.every(r => estadoRamos[r.nombre].aprobado);
       if (aprobados) {
-        estadoRamos[nombreDesbloqueado].boton.disabled = false;
+        estadoRamos[nombreDesbloqueado].contenedor.classList.remove("bloqueado");
       }
     }
   });
