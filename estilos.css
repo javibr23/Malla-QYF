@@ -5,10 +5,12 @@ body {
   margin: 0;
   padding: 20px;
 }
+
 h1 {
   text-align: center;
   color: #c71585;
 }
+
 #contenedor {
   display: flex;
   gap: 20px;
@@ -16,13 +18,16 @@ h1 {
   padding: 10px;
   justify-content: flex-start;
 }
+
 .semestre {
   min-width: 220px;
 }
+
 .semestre h2 {
   text-align: center;
   color: #c71585;
 }
+
 .ramo {
   border: 2px solid #c71585;
   background-color: #ffe6f0;
@@ -35,9 +40,11 @@ h1 {
   transition: 0.2s;
   user-select: none;
 }
+
 .ramo:hover {
   background-color: #fcd1e5;
 }
+
 .ramo.aprobado {
   background-color: #ffc0cb;
   text-decoration: line-through;
@@ -45,6 +52,7 @@ h1 {
   color: #444;
   cursor: default;
 }
+
 .ramo.bloqueado {
   background-color: #f2f2f2;
   color: #aaa;
