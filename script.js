@@ -41,7 +41,7 @@ const ramos = [
 
   { nombre: "Microbiología", semestre: "VI Semestre", desbloquea: ["Farmacología de sistemas II"] },
   { nombre: "Farmoquímica I", semestre: "VI Semestre", desbloquea: ["Farmoquímica II"] },
-  { nombre: "Farmacología de sistemas I", semestre: "VI Semestre", desbloquea: ["Farmacología de sistemas II"] },
+  { nombre: "Farmacología de Sistemas I", semestre: "VI Semestre", desbloquea: ["Farmacología de sistemas II"] },
   { nombre: "Fisiopatología Molecular", semestre: "VI Semestre", desbloquea: ["Fisiopatología y Semiología", "Biotecnología Farmacéutica"] },
   { nombre: "Legislación Farmacéutica", semestre: "VI Semestre", desbloquea: ["Salud Publica", "Tecnología Farmacéutica I"] },
   { nombre: "Fisicoquímica Farmacéutica", semestre: "VI Semestre", desbloquea: ["Operaciones Unitarias para QYF", "Tecnología Farmacéutica I"] },
