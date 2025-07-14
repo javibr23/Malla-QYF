@@ -80,6 +80,16 @@ const ramos = [
 
 const estadoRamos = {};
 
+function guardarProgreso() {
+  const aprobados = Object.keys(estadoRamos).filter(r => estadoRamos[r].aprobado);
+  localStorage.setItem("ramosAprobados", JSON.stringify(aprobados));
+}
+
+function cargarProgreso() {
+  const aprobados = JSON.parse(localStorage.getItem("ramosAprobados")) || [];
+  aprobados.forEach(nombre => aprobarRamo(nombre, true));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const malla = document.getElementById("malla-container");
   const semestres = [...new Set(ramos.map(r => r.semestre))];
@@ -109,27 +119,48 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   desbloquearIniciales();
+  cargarProgreso();
+
+  // Botón para reiniciar la malla
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = "Reiniciar malla";
+  resetBtn.style.cssText = `
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    border: none;
+    background-color: #f06292;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+  `;
+  resetBtn.addEventListener("mouseenter", () => {
+    resetBtn.style.backgroundColor = "#ec407a";
+  });
+  resetBtn.addEventListener("mouseleave", () => {
+    resetBtn.style.backgroundColor = "#f06292";
+  });
+  resetBtn.addEventListener("click", () => {
+    localStorage.removeItem("ramosAprobados");
+    location.reload();
+  });
+
+  document.body.appendChild(resetBtn);
 });
 
 function desbloquearIniciales() {
-  const ramosConPrerequisitos = new Set();
-  ramos.forEach(r => {
-    r.desbloquea.forEach(nombre => {
-      ramosConPrerequisitos.add(nombre);
-    });
-  });
+  const ramosConPrerequisitos = ramos.map(r => r.desbloquea).flat();
+  const ramosIniciales = ramos.filter(r => !ramosConPrerequisitos.includes(r.nombre));
 
-  ramos.forEach(r => {
-    const tienePrerequisitos = ramos.some(other =>
-      other.desbloquea.includes(r.nombre)
-    );
-    if (!tienePrerequisitos) {
-      estadoRamos[r.nombre].contenedor.classList.remove("bloqueado");
-    }
+  ramosIniciales.forEach(r => {
+    estadoRamos[r.nombre].contenedor.classList.remove("bloqueado");
   });
 }
 
-function aprobarRamo(nombre) {
+function aprobarRamo(nombre, cargando = false) {
   const ramo = estadoRamos[nombre];
   if (ramo.aprobado) return;
 
@@ -146,4 +177,6 @@ function aprobarRamo(nombre) {
       }
     }
   });
+
+  if (!cargando) guardarProgreso();
 }
