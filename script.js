@@ -5,7 +5,7 @@ const ramos = [
   { nombre: "Introducción al Cálculo", semestre: "I Semestre", desbloquea: ["Calculo diferencial e integral", "Electromagnetismo"] },
   { nombre: "El Químico Farmacéutico y su Acción", semestre: "I Semestre", desbloquea: ["El Medicamento y su Evolución"] },
   { nombre: "Inglés I", semestre: "I Semestre", desbloquea: ["Inglés II"] },
-  { nombre: "Cursos de Formación General", semestre: "I Semestre", desbloquea: [] },
+  { nombre: "Cursos de Formación General I", semestre: "I Semestre", desbloquea: [] },
 
   { nombre: "Química General II", semestre: "II Semestre", desbloquea: ["Química Orgánica I", "Química Analítica I", "Laboratorio I de Química Orgánica"] },
   { nombre: "Laboratorio de Química General", semestre: "II Semestre", desbloquea: ["Química analítica I", "Laboratorio I de Química Orgánica"] },
@@ -21,7 +21,7 @@ const ramos = [
   { nombre: "Estadísticas y análisis de datos", semestre: "III Semestre", desbloquea: ["Laboratorio de Análisis Químico", "Estadística Farmacéutica"] },
   { nombre: "Fisiología celular", semestre: "III Semestre", desbloquea: ["Fisiología de Sistemas"] },
   { nombre: "Investigación para las Ciencias Farmacéuticas", semestre: "III Semestre", desbloquea: ["Practica intermedia", "Gestión de Calidad"] },
-  { nombre: "Cursos de Formación General", semestre: "III Semestre", desbloquea: [] },
+  { nombre: "Cursos de Formación General II", semestre: "III Semestre", desbloquea: [] },
   { nombre: "Inglés III", semestre: "III Semestre", desbloquea: ["Inglés IV"] },
 
   { nombre: "Química Orgánica II", semestre: "IV Semestre", desbloquea: ["Química de Heterocíclicos y Análisis Espectroscópico", "Bioquímica", "Botánica y Farmacognosia"] },
@@ -66,14 +66,14 @@ const ramos = [
   { nombre: "Toxicología", semestre: "IX Semestre", desbloquea: ["Practica Profesional en Farmacia Comunitaria"] },
   { nombre: "Farmacia Asistencial", semestre: "IX Semestre", desbloquea: [] },
   { nombre: "Tecnología Cosmética", semestre: "IX Semestre", desbloquea: [] },
-  { nombre: "Electivo Especializado", semestre: "IX Semestre", desbloquea: [] },
+  { nombre: "Electivo Especializado I", semestre: "IX Semestre", desbloquea: [] },
 
   { nombre: "Farmacia Clínica", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
   { nombre: "Práctica Profesional en Farmacia Comunitaria", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
   { nombre: "Biotecnología Farmacéutica", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
   { nombre: "Economía en Salud y Marketing Farmacéutico", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
   { nombre: "Innovación y proyectos", semestre: "X Semestre", desbloquea: ["Actividad final de titulación"] },
-  { nombre: "Electivo Especializado", semestre: "X Semestre", desbloquea: [] },
+  { nombre: "Electivo Especializado II", semestre: "X Semestre", desbloquea: [] },
 
   { nombre: "Actividad final de titulación", semestre: "XI Semestre", desbloquea: [] }
 ];
